@@ -5,4 +5,5 @@ export class Postagem {
     public titulo: string;
     public data: Date;
     public tema: Tema;
+  texto: any;
 }
