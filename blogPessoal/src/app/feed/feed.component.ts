@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 import { Postagem } from '../model/Postagem';
 import { Tema } from '../model/Tema';
 import { AlertasService } from '../service/alertas.service';
@@ -29,17 +30,17 @@ export class FeedComponent implements OnInit {
   constructor(
     private postagemService: PostagemService,
     private temaService: TemaService,
-    private alerta: AlertasService,
+    private alert: AlertasService,
     private router: Router
   ) { }
 
   ngOnInit() {
 
-    let token = localStorage.getItem('token')
+    let token = environment.token
 
-    if(token == null) {
+    if(token == '') {
       this.router.navigate(['/login'])
-      this.alerta.showAlertDanger('Faça o login para acessar o feed!')
+      this.alert.showAlertDanger('Faça o login para acessar o feed!')
     }
 
 
@@ -59,12 +60,12 @@ export class FeedComponent implements OnInit {
     this.postagem.tema = this.tema
 
     if (this.postagem.titulo == null || this.postagem.texto == null || this.postagem.tema == null) {
-      alert('Preencha todos os campos antes de publicar!')
+      this.alert.showAlertInfo('Preencha todos os campos antes de publicar!')
     } else {
       this.postagemService.postPostagem(this.postagem).subscribe((resp: Postagem) => {
         this.postagem = resp
         this.postagem = new Postagem()
-        alert('Postagem realizada com sucesso!')
+        this.alert.showAlertSuccess('Postagem realizada com sucesso!')
         this.findAllPostagens()
       })
     }

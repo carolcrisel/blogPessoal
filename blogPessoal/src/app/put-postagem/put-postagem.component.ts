@@ -30,15 +30,16 @@ export class PutPostagemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    window.scroll(0,0)
+    window.scroll(0, 0)
     this.idPost = this.route.snapshot.params["id"]
     this.findByIdPostagem(this.idPost)
-    
+
     this.findAllTemas()
   }
 
-  findByIdPostagem(id:number) {
-    this.postagemService.getByIdPostagem(id).subscribe((resp: Postagem) => { this.postagem = resp
+  findByIdPostagem(id: number) {
+    this.postagemService.getByIdPostagem(id).subscribe((resp: Postagem) => {
+      this.postagem = resp
     })
 
   }
@@ -47,22 +48,23 @@ export class PutPostagemComponent implements OnInit {
     this.tema.id = this.idTema
     this.postagem.tema = this.tema
 
-    this.postagemService.putPostagem(this.postagem).subscribe((resp: Postagem) => {this.postagem = resp 
-      this.router.navigate(['/feed']) 
-      this.alert.showAlertSuccess ('Postagem alterada com sucesso!')
+    this.postagemService.putPostagem(this.postagem).subscribe((resp: Postagem) => {
+      this.postagem = resp
+      this.router.navigate(['/feed'])
+      this.alert.showAlertSuccess('Postagem alterada com sucesso!')
     }, err => {
-      if (err.status == '500'){
+      if (err.status == '500') {
         this.alert.showAlertDanger('Preencha todos os campos corretamente antes de enviar!')
       }
     })
-      
+
   }
 
   findAllTemas() {
     this.temaService.getAllTemas().subscribe((resp: Tema[]) => { this.listaTemas = resp })
 
   }
-  findByIdTema(){
-    this.temaService.getByIdTema(this.idTema).subscribe((resp: Tema) => { this.tema =resp;})
-}
+  findByIdTema() {
+    this.temaService.getByIdTema(this.idTema).subscribe((resp: Tema) => { this.tema = resp; })
+  }
 }

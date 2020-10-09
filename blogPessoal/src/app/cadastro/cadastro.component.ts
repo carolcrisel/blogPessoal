@@ -16,7 +16,7 @@ export class CadastroComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private alerta: AlertasService
+    private alert: AlertasService
   ) { }
 
   ngOnInit(): void {
@@ -26,10 +26,10 @@ export class CadastroComponent implements OnInit {
       this.authService.cadastrar(this.user).subscribe((resp: User)=>{
         this.user = resp 
         this.router.navigate(['/login'])
-        this.alerta.showAlertSuccess('Usuário cadastrado com sucesso!')
+        this.alert.showAlertSuccess('Usuário cadastrado com sucesso!')
       })
     } else {
-      this.alerta.showAlertDanger('Suas senhas não conferem')
+      this.alert.showAlertDanger('Suas senhas não conferem')
     }
   }
   conferirSenha(event: any){

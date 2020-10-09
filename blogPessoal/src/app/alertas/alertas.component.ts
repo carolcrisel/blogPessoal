@@ -10,7 +10,7 @@ export class AlertasComponent implements OnInit {
 
   @Input() message: string
   @Input() type = 'success'
-  constructor(public modal:BsModalRef) { }
+  constructor(public modal: BsModalRef) { }
 
   ngOnInit(): void {
   }
